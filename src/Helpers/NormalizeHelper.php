@@ -1,7 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace theStormwinter\EasyWsdl2Php\Helpers;
 
+use Nette\Utils\Strings;
 use theStormwinter\EasyWsdl2Php\Exceptions\NamespaceNameBlacklisted;
 
 
@@ -32,8 +33,12 @@ class NormalizeHelper
 	public static function namespaceName(?string $namespace = null): ?string
 	{
 		$namespace = self::namespaceSeparator($namespace);
-		if ((mb_stripos($namespace, self::DEFAULT_NAMESPACE_NAME) !== false) or $namespace == null) {
-			$namespace = 'MySoap' . self::NAMESPACE_SEPARATOR . self::DEFAULT_NAMESPACE_NAME;
+		if (empty($namespace))
+		{
+			$namespace = 'Wsdl' . self::NAMESPACE_SEPARATOR . self::DEFAULT_NAMESPACE_NAME;
+		}
+		if ((mb_stripos($namespace, self::DEFAULT_NAMESPACE_NAME) !== false)) {
+			$namespace = 'Wsdl' . self::NAMESPACE_SEPARATOR . self::DEFAULT_NAMESPACE_NAME;
 		}
 		CheckHelper::blacklist($namespace);
 
@@ -83,6 +88,35 @@ class NormalizeHelper
 		}
 
 		return $className;
+	}
+	
+	public static function generateValidNameOfClassOrProperty(string $value, bool $firstUp = true): string
+	{
+		if ($firstUp === true)
+		{
+			$arrayOfNonToRename = ['int', 'array', 'string', 'bool', 'boolean', 'float'];
+			if (!in_array($value, $arrayOfNonToRename))
+			{
+				$value = Strings::firstUpper($value);
+			}
+		}
+		if (Strings::contains($value, '-'))
+		{
+			$explode = explode('-', $value);
+			$uper = [];
+			foreach ($explode as $key => $ex)
+			{
+				if ($key == 0 && $firstUp === false)
+				{
+					$uper[] = $ex;
+					continue;
+				}
+				$uper[] = Strings::firstUpper($ex);
+			}
+			$value = implode('', $uper);
+		}
+		
+		return $value;
 	}
 
 }

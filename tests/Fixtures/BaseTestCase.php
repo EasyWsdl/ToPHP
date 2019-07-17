@@ -11,7 +11,7 @@ abstract class BaseTestCase extends TestCase
 	/** @var Generator */
 	protected $service;
 	/** @var string */
-	//	protected $url = 'https://raw.githubusercontent.com/bet365/soap/master/doc/example.wsdl';
+		protected $url2 = 'https://raw.githubusercontent.com/bet365/soap/master/doc/example.wsdl';
 	protected $url = 'https://mojezasielky.posta.sk/integration/webServices/api?wsdl';
 	/** @var array */
 	protected $options = ['trace' => true];

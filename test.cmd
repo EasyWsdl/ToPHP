@@ -1,1 +1,1 @@
-vendor\bin\tester.bat -c tests/php-win.ini tests
+vendor\bin\tester.bat -c php-win.ini tests

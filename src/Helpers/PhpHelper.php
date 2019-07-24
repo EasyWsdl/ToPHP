@@ -125,6 +125,7 @@ class PhpHelper
                          '}' . $this->newLine .
                          'if ($key = array_search($propyName, self::$renamedProperties))' . $this->newLine .
                          '{' . $this->newLine .
+	                        '$key = lcfirst($key);' . $this->newLine .
                          '$entity->{$key} = $propy;' . $this->newLine .
                          'unset($entity->{$propyName});' . $this->newLine .
                          '}' . $this->newLine .

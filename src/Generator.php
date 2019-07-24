@@ -74,14 +74,11 @@ class Generator
 		$soapClass->createClass($this->className);
 		$soapClass->setExtendsSoapClient();
 		$soapClass->addUse(NormalizeHelper::DEFAULT_NAMESPACE_NAME);
-		$soapClass->addUse('\\stdClass');
-		$soapClass->addUse($typesNs);
-		//		$soapClass->setSoapClientProperty();
 		$soapClass->setOptionsProperty();
 		$soapClass->setRenamedPropertiesProperty();
 		$soapClass->createSoapClientConstructor();
 		$soapClass->setNormalizeOptionsMethod();
-		$soapClass->createSoapEntityEndoder();
+		$soapClass->createSoapEntityEncoder();
 		$soapClass->createSoapEntityDecoder();
 		foreach ($this->functions as $func) {
 			$explode = explode(' ', $func, 2);

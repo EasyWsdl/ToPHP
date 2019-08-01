@@ -155,6 +155,7 @@ class PhpHelper
         $method->setBody('$' . $paramName . ' = $this->encodeEntities($' . $paramName . ');' . $this->newLine .
                          //		'/** @noinspection PhpUndefinedMethodInspection */' . $this->newLine .
                          '$' . $propName . ' = $this->__soapCall(\'' . $methodName . '\',[$' . $paramName . ']);' . $this->newLine .
+	                     '$this->decodeEntities($' . $paramName . ');' . $this->newLine .
                          '$' . $propName . ' = $this->decodeEntities($' . $propName . ');' . $this->newLine .
                          'return $' . $propName . ';'
         );

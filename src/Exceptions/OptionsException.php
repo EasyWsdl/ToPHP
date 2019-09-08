@@ -7,7 +7,7 @@ namespace EasyWsdl\ToPHP\Exceptions;
 use Exception;
 
 
-class NamespaceNameBlacklisted extends Exception
+class OptionsException extends Exception
 {
 
 }

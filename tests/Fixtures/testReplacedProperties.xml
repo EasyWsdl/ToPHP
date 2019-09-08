@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://mojezasielky.posta.sk/api" targetNamespace="http://mojezasielky.posta.sk/api">
+
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://mojezasielky.posta.sk/api">
+
+            <xs:complexType name="authType">
+                <xs:sequence>
+                    <xs:element name="userId" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                    <xs:element name="apiKey" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="sheetErrorReportType">
+                <xs:sequence>
+                    <xs:element name="error" minOccurs="1" maxOccurs="unbounded">
+                        <xs:complexType>
+                            <xs:attribute name="attr" type="xs:string" use="required"/>
+                            <xs:attribute name="reason" type="xs:string" use="required"/>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="ephType">
+                <xs:sequence>
+                    <xs:element minOccurs="1" maxOccurs="1" name="InfoEPH">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="1" maxOccurs="1" name="Mena" type="xs:string"/>
+                                <xs:element minOccurs="1" maxOccurs="1" name="TypEPH" type="xs:positiveInteger"/>
+                                <xs:element minOccurs="1" maxOccurs="1" name="EPHID" type="xs:string"/>
+                                <xs:element minOccurs="1" maxOccurs="1" name="Datum" type="xs:string"/>
+                                <xs:element minOccurs="1" maxOccurs="1" name="PocetZasielok" type="xs:string"/>
+                                <xs:element minOccurs="0" maxOccurs="unbounded" name="Uhrada">
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:element minOccurs="1" maxOccurs="1" name="SposobUhrady" type="xs:positiveInteger"/>
+                                            <xs:element minOccurs="1" maxOccurs="1" name="SumaUhrady" type="xs:string"/>
+                                        </xs:sequence>
+                                    </xs:complexType>
+                                </xs:element>
+                                <xs:element minOccurs="0" maxOccurs="1" name="DruhPPP" type="xs:positiveInteger"/>
+                                <xs:element minOccurs="1" maxOccurs="1" name="DruhZasielky" type="xs:positiveInteger"/>
+                                <xs:element minOccurs="0" maxOccurs="1" name="SposobSpracovania" type="xs:positiveInteger"/>
+                                <xs:element minOccurs="1" maxOccurs="1" name="Odosielatel">
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:element minOccurs="1" maxOccurs="1" name="OdosielatelID" type="xs:string"/>
+                                            <xs:element minOccurs="1" maxOccurs="1" name="Meno" type="xs:string"/>
+                                            <xs:element minOccurs="1" maxOccurs="1" name="Organizacia" type="xs:string"/>
+                                            <xs:element minOccurs="1" maxOccurs="1" name="Ulica" type="xs:string"/>
+                                            <xs:element minOccurs="1" maxOccurs="1" name="Mesto" type="xs:string"/>
+                                            <xs:element minOccurs="1" maxOccurs="1" name="PSC" type="xs:string"/>
+                                            <xs:element minOccurs="0" maxOccurs="1" name="Krajina" type="xs:string"/>
+                                            <xs:element minOccurs="0" maxOccurs="1" name="Telefon" type="xs:string"/>
+                                            <xs:element minOccurs="0" maxOccurs="1" name="Email" type="xs:string"/>
+                                            <xs:element minOccurs="0" maxOccurs="1" name="CisloUctu" type="xs:string"/>
+                                        </xs:sequence>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="1" maxOccurs="1" name="Zasielky">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element minOccurs="1" maxOccurs="unbounded" name="Zasielka">
+                                    <xs:complexType>
+                                        <xs:sequence>
+                                            <xs:element minOccurs="1" maxOccurs="1" name="Adresat">
+                                                <xs:complexType>
+                                                    <xs:sequence>
+                                                        <xs:element minOccurs="1" maxOccurs="1" name="Meno" type="xs:int"/>
+                                                        <xs:element minOccurs="1" maxOccurs="1" name="Organizacia" type="xs:string"/>
+                                                        <xs:element minOccurs="1" maxOccurs="1" name="Ulica" type="xs:string"/>
+                                                        <xs:element minOccurs="1" maxOccurs="1" name="Mesto" type="xs:string"/>
+                                                        <xs:element minOccurs="1" maxOccurs="1" name="PSC" type="xs:string"/>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="Krajina" type="xs:string"/>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="Telefon" type="xs:string"/>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="Email" type="xs:string"/>
+                                                    </xs:sequence>
+                                                </xs:complexType>
+                                            </xs:element>
+                                            <xs:element minOccurs="0" maxOccurs="1" name="Spat">
+                                                <xs:complexType>
+                                                    <xs:sequence>
+                                                        <xs:element minOccurs="1" maxOccurs="1" name="Meno" type="xs:string"/>
+                                                        <xs:element minOccurs="1" maxOccurs="1" name="Organizacia" type="xs:string"/>
+                                                        <xs:element minOccurs="1" maxOccurs="1" name="Ulica" type="xs:string"/>
+                                                        <xs:element minOccurs="1" maxOccurs="1" name="Mesto" type="xs:string"/>
+                                                        <xs:element minOccurs="1" maxOccurs="1" name="PSC" type="xs:string"/>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="Krajina" type="xs:string"/>
+                                                    </xs:sequence>
+                                                </xs:complexType>
+                                            </xs:element>
+                                            <xs:element name="Info">
+                                                <xs:complexType>
+                                                    <xs:sequence>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="CiarovyKod" type="xs:string"/>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="ZasielkaID" type="xs:string"/>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="Hmotnost" type="xs:string"/>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="CenaDobierky" type="xs:string"/>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="CenaPoistneho" type="xs:string"/>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="CenaVyplatneho" type="xs:string"/>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="Trieda" type="xs:string"/>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="CisloUctu" type="xs:string"/>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="SymbolPrevodu" type="xs:string"/>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="Poznamka" type="xs:string"/>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="DruhPPP" type="xs:positiveInteger"/>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="DruhZasielky" type="xs:positiveInteger"/>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="DatumPrijatia" type="xs:string"/>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="Objem" type="xs:string"/>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="PocetKusov" type="xs:positiveInteger"/>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="ObsahZasielky" type="xs:string"/>
+                                                    </xs:sequence>
+                                                </xs:complexType>
+                                            </xs:element>
+                                            <xs:element minOccurs="0" maxOccurs="1" name="PouziteSluzby">
+                                                <xs:complexType>
+                                                    <xs:sequence>
+                                                        <xs:element minOccurs="0" maxOccurs="unbounded" name="Sluzba" type="xs:string"/>
+                                                    </xs:sequence>
+                                                </xs:complexType>
+                                            </xs:element>
+                                            <xs:element minOccurs="0" maxOccurs="1" name="DalsieUdaje">
+                                                <xs:complexType>
+                                                    <xs:sequence>
+                                                        <xs:element minOccurs="1" maxOccurs="unbounded" name="Udaj">
+                                                            <xs:complexType>
+                                                                <xs:sequence>
+                                                                    <xs:element minOccurs="1" maxOccurs="1" name="Nazov" type="xs:string"/>
+                                                                    <xs:element minOccurs="1" maxOccurs="1" name="Hodnota" type="xs:string"/>
+                                                                    <xs:element minOccurs="1" maxOccurs="1" name="DalsiHodnota" type="xs:string"/>
+                                                                    <xs:element minOccurs="1" maxOccurs="1" name="Odeslano" type="xs:string"/>
+                                                                </xs:sequence>
+                                                            </xs:complexType>
+                                                        </xs:element>
+                                                    </xs:sequence>
+                                                </xs:complexType>
+                                            </xs:element>
+                                            <xs:element minOccurs="0" maxOccurs="1" name="ColneVyhlasenie">
+                                                <xs:complexType>
+                                                    <xs:sequence>
+                                                        <xs:element minOccurs="1" maxOccurs="1" name="Kategoria" type="xs:string"/>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="KategoriaIne" type="xs:string"/>
+                                                        <xs:element minOccurs="1" maxOccurs="1" name="Obsah">
+                                                            <xs:complexType>
+                                                                <xs:sequence>
+                                                                    <xs:element minOccurs="1" maxOccurs="4" name="Polozka">
+                                                                        <xs:complexType>
+                                                                            <xs:sequence>
+                                                                                <xs:element minOccurs="1" maxOccurs="1" name="Popis" type="xs:string"/>
+                                                                                <xs:element minOccurs="1" maxOccurs="1" name="Mnozstvo" type="xs:positiveInteger"/>
+                                                                                <xs:element minOccurs="1" maxOccurs="1" name="Hmotnost" type="xs:string"/>
+                                                                                <xs:element minOccurs="1" maxOccurs="1" name="Hodnota" type="xs:string"/>
+                                                                                <xs:element minOccurs="0" maxOccurs="1" name="TarifneCislo" type="xs:string"/>
+                                                                                <xs:element minOccurs="0" maxOccurs="1" name="KrajinaPovodu" type="xs:string"/>
+                                                                            </xs:sequence>
+                                                                        </xs:complexType>
+                                                                    </xs:element>
+                                                                </xs:sequence>
+                                                            </xs:complexType>
+                                                        </xs:element>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="Dokumenty">
+                                                            <xs:complexType>
+                                                                <xs:sequence>
+                                                                    <xs:element minOccurs="0" maxOccurs="3" name="Dokument">
+                                                                        <xs:complexType>
+                                                                            <xs:sequence>
+                                                                                <xs:element minOccurs="1" maxOccurs="1" name="Typ" type="xs:string"/>
+                                                                                <xs:element minOccurs="1" maxOccurs="1" name="Cislo" type="xs:string"/>
+                                                                            </xs:sequence>
+                                                                        </xs:complexType>
+                                                                    </xs:element>
+                                                                </xs:sequence>
+                                                            </xs:complexType>
+                                                        </xs:element>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="ReferenciaDovozcu" type="xs:string"/>
+                                                        <xs:element minOccurs="0" maxOccurs="1" name="Poznamka" type="xs:string"/>
+                                                    </xs:sequence>
+                                                </xs:complexType>
+                                            </xs:element>
+                                        </xs:sequence>
+                                    </xs:complexType>
+                                </xs:element>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="verzia" type="xs:string"/>
+            </xs:complexType>
+
+            <xs:element name="importSheetRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="auth" type="tns:authType" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="contract" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+                        <xs:element name="EPH" type="tns:ephType" minOccurs="1" maxOccurs="1"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="importSheetResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="sheetId" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="getSheetStatusRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="auth" type="tns:authType" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="sheetId" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="getSheetStatusResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="sheetStatus" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="sheetErrorReport" type="tns:sheetErrorReportType" minOccurs="0" maxOccurs="1"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="getSheetRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="auth" type="tns:authType" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="sheetId" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="getSheetResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="sheetStatus" type="xs:string" minOccurs="1" maxOccurs="1"/>
+                        <xs:element name="EPH" type="tns:ephType" minOccurs="0" maxOccurs="1"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+        </xs:schema>
+    </wsdl:types>
+
+    <wsdl:message name="importSheetRequest">
+        <wsdl:part element="tns:importSheetRequest" name="importSheetRequest"/>
+    </wsdl:message>
+    <wsdl:message name="importSheetResponse">
+        <wsdl:part element="tns:importSheetResponse" name="importSheetResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getSheetRequest">
+        <wsdl:part element="tns:getSheetRequest" name="getSheetRequest"/>
+    </wsdl:message>
+    <wsdl:message name="getSheetResponse">
+        <wsdl:part element="tns:getSheetResponse" name="getSheetResponse"/>
+    </wsdl:message>
+    <wsdl:message name="getSheetStatusRequest">
+        <wsdl:part element="tns:getSheetStatusRequest" name="getSheetStatusRequest"/>
+    </wsdl:message>
+    <wsdl:message name="getSheetStatusResponse">
+        <wsdl:part element="tns:getSheetStatusResponse" name="getSheetStatusResponse"/>
+    </wsdl:message>
+
+    <wsdl:portType name="APIPort">
+        <wsdl:operation name="importSheet">
+            <wsdl:input message="tns:importSheetRequest" name="importSheetRequest"/>
+            <wsdl:output message="tns:importSheetResponse" name="importSheetResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getSheet">
+            <wsdl:input message="tns:getSheetRequest" name="getSheetRequest"/>
+            <wsdl:output message="tns:getSheetResponse" name="getSheetResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getSheetStatus">
+            <wsdl:input message="tns:getSheetStatusRequest" name="getSheetStatusRequest"/>
+            <wsdl:output message="tns:getSheetStatusResponse" name="getSheetStatusResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getDump">
+            <wsdl:output message="tns:getSheetStatusResponse" name="getSheetStatusResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="APISoap" type="tns:APIPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="importSheet">
+            <soap:operation soapAction="importSheet"/>
+            <wsdl:input name="importSheetRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="importSheetResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getSheet">
+            <soap:operation soapAction="getSheet"/>
+            <wsdl:input name="getSheetRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getSheetResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getSheetStatus">
+            <soap:operation soapAction="getSheetStatus"/>
+            <wsdl:input name="getSheetStatusRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getSheetStatusResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getDump">
+            <soap:operation soapAction="getDump"/>
+            <wsdl:output name="getSheetStatusResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="ApiService">
+        <wsdl:port binding="tns:APISoap" name="APISoap">
+            <soap:address location="https://mojezasielky.posta.sk/integration/webServices/api"/>
+        </wsdl:port>
+    </wsdl:service>
+
+</wsdl:definitions>

@@ -13,8 +13,6 @@ class WsdlOptions
     protected $options = null;
     /** @var string */
     protected $soapClientName;
-    //    /** @var string|null */   //TODO: Uncompleted for now
-    //    protected $soapClientNamespace = null;
 
     /**
      * @return SoapOptions|null
@@ -63,22 +61,6 @@ class WsdlOptions
     {
         $this->wsdl = $wsdl;
     }
-
-    /**
-     * @return string|null
-     */
-    //    public function getSoapClientNamespace(): ?string
-    //    {
-    //        return $this->soapClientNamespace;
-    //    }
-
-    /**
-     * @param string|null $soapClientNamespace
-     */
-    //    public function setSoapClientNamespace(?string $soapClientNamespace): void
-    //    {
-    //        $this->soapClientNamespace = $soapClientNamespace;
-    //    }
 
 
 }

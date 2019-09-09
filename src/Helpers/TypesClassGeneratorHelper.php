@@ -22,11 +22,19 @@ class TypesClassGeneratorHelper
     /** @var PhpFile */
     protected $file;
 
+    /**
+     * TypesClassGeneratorHelper constructor.
+     * @param string $namespaceName
+     * @param string $typesDir
+     */
     public function __construct(string $namespaceName, string $typesDir)
     {
         $this->namespaceName = $namespaceName . '\\' . $typesDir;
     }
 
+    /**
+     * @param TypesClassType $classType
+     */
     public function createClass(TypesClassType $classType): void
     {
         $useStatement = null;

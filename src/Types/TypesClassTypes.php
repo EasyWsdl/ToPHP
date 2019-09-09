@@ -9,6 +9,10 @@ use Nette\Utils\Strings;
 use UnexpectedValueException;
 
 
+/**
+ * Class TypesClassTypes
+ * @package EasyWsdl\ToPHP\Types
+ */
 class TypesClassTypes
 {
     /** @var array */
@@ -17,14 +21,24 @@ class TypesClassTypes
     protected $sameClassNames;
     /** @var array */
     protected $namespacedClasses = [];
+    /** @var array */
     protected $unnamspacedClasses = [];
+    /** @var int */
     private $key = 0;
 
+    /**
+     * @param TypesClassType $class
+     */
     public function addClass(TypesClassType $class): void
     {
         $this->setClassType($class);
     }
 
+    /**
+     * @param string $className
+     * @param string $soapClassName
+     * @return TypesClassType|null
+     */
     public function getClassByClassNameAndSoapName(string $className, string $soapClassName): ?TypesClassType
     {
         /** @var TypesClassType $class */
@@ -102,9 +116,6 @@ class TypesClassTypes
         }
     }
 
-    /**
-     *
-     */
     private function changeNamespaceInClass(): void
     {
 
@@ -118,7 +129,6 @@ class TypesClassTypes
             }
             $properties = [];
             $sameClassNames = $this->getSameClassNames()->findKeysByClassName($class->getClassName());
-            //            $classes = $this->findClassesByClassName($class->getClassName());
             foreach ($sameClassNames->getClassArrayKeys() as $key)
             {
                 foreach ($sameClassNames->getClassArrayKeys() as $k)
@@ -157,6 +167,9 @@ class TypesClassTypes
         }
     }
 
+    /**
+     * @return bool
+     */
     private function changeNamespaceInProperties(): bool
     {
         $rerun = false;
@@ -185,6 +198,10 @@ class TypesClassTypes
         return $rerun;
     }
 
+    /**
+     * @param string $comment
+     * @return string
+     */
     private function generateClassNameFromComment(string $comment): string
     {
         $comment = str_replace('@var ', '', $comment);
@@ -192,6 +209,9 @@ class TypesClassTypes
         return $comment;
     }
 
+    /**
+     * @return SameClassNames
+     */
     private function getSameClassNames(): SameClassNames
     {
         if (empty($this->sameClassNames))
@@ -218,6 +238,9 @@ class TypesClassTypes
         }
     }
 
+    /**
+     * @param TypesClassType $class
+     */
     private function setClassType(TypesClassType $class): void
     {
         $this->classes[$this->key] = $class;
@@ -225,6 +248,9 @@ class TypesClassTypes
         $this->key++;
     }
 
+    /**
+     * @param array $arrayKeys
+     */
     private function setNamespaceEnds(array $arrayKeys): void
     {
         foreach ($arrayKeys as $key)
@@ -237,6 +263,10 @@ class TypesClassTypes
         }
     }
 
+    /**
+     * @param array  $arrayKeys
+     * @param string $useStatement
+     */
     private function setUseStatements(array $arrayKeys, string $useStatement): void
     {
         foreach ($arrayKeys as $key)

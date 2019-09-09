@@ -14,11 +14,13 @@ use ReflectionException;
 class ValidationHelper
 {
     public const DEFAULT_SOAP_CLIENT_NAME = 'SoapClient';
+    public const DEFAULT_TYPES_DIR = 'Types';
 
     /**
      * @param GeneratorOptions $options
-     * @throws OptionsException
      * @throws NamespaceNameBlacklisted
+     * @throws OptionsException
+     * @throws ReflectionException
      */
     public static function validateOptions(GeneratorOptions $options): void
     {

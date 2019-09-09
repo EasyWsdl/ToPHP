@@ -1,5 +1,5 @@
 {
-  "name": "thestormwinter/easywsdl2php",
+  "name": "easywsdl/tophp",
   "description": "Library for generating PHP classes from wsdl.",
   "type": "library",
   "license": "GPL-3.0",

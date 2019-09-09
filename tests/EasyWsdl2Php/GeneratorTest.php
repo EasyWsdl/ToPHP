@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace theStormwinter\EasyWsdl2Php\Tests\EasyWsdl2Php;
+namespace EasyWsdl\ToPHP\Tests\EasyWsdl2Php;
 
 use Tester\Assert;
-use theStormwinter\EasyWsdl2Php\Exceptions\NamespaceNameBlacklisted;
-use theStormwinter\EasyWsdl2Php\Generator;
-use theStormwinter\EasyWsdl2Php\Tests\Fixtures\BaseTestCase;
+use EasyWsdl\ToPHP\Exceptions\NamespaceNameBlacklisted;
+use EasyWsdl\ToPHP\Generator;
+use EasyWsdl\ToPHP\Tests\Fixtures\BaseTestCase;
 
 
 require_once __DIR__ . '/../bootstrap.php';

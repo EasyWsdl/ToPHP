@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace theStormwinter\EasyWsdl2Php\Helpers;
+namespace EasyWsdl\ToPHP\Helpers;
 
 use Nette\Utils\Strings;
-use theStormwinter\EasyWsdl2Php\Exceptions\NamespaceNameBlacklisted;
+use EasyWsdl\ToPHP\Exceptions\NamespaceNameBlacklisted;
 
 
 class NormalizeHelper

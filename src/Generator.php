@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace theStormwinter\EasyWsdl2Php;
+namespace EasyWsdl\ToPHP;
 
 use SoapClient;
 use SoapFault;
 use stdClass;
-use theStormwinter\EasyWsdl2Php\Exceptions\NamespaceNameBlacklisted;
-use theStormwinter\EasyWsdl2Php\Helpers\NormalizeHelper;
-use theStormwinter\EasyWsdl2Php\Helpers\PhpHelper;
+use EasyWsdl\ToPHP\Exceptions\NamespaceNameBlacklisted;
+use EasyWsdl\ToPHP\Helpers\NormalizeHelper;
+use EasyWsdl\ToPHP\Helpers\PhpHelper;
 
 
 /**
@@ -18,7 +18,7 @@ use theStormwinter\EasyWsdl2Php\Helpers\PhpHelper;
  * @param string|null $namespace         Namespace of generated classes
  * @param string      $soapClassName     Name of the main class with SoapClient call
  *
- * @package theStormwinter\EasyWsdl2Php
+ * @package EasyWsdl\ToPHP
  */
 class Generator
 {

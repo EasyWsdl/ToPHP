@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace theStormwinter\EasyWsdl2Php\Tests\Fixtures;
+namespace EasyWsdl\ToPHP\Tests\Fixtures;
 
 use Tester\TestCase;
-use theStormwinter\EasyWsdl2Php\Generator;
+use EasyWsdl\ToPHP\Generator;
 
 
 abstract class BaseTestCase extends TestCase

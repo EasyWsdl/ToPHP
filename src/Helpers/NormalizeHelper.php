@@ -15,68 +15,7 @@ class NormalizeHelper
     const NAMESPACE_SEPARATOR = '\\';
     const DIRECTORY_SEPARATOR = '/';
     const DEFAULT_NAMESPACE_NAME = 'SoapClient';
-    const TYPES_DIR = 'Types';
 
-    public static function namespaceSeparator(?string $namespace = null): ?string
-    {
-        if ($namespace and mb_substr($namespace, -1) == self::NAMESPACE_SEPARATOR)
-        {
-            $namespace = mb_substr($namespace, 0, -1);
-        }
-
-        return $namespace;
-    }
-
-    /**
-     * @param null|string $namespace
-     * @return null|string
-     * @throws NamespaceNameBlacklisted
-     */
-    public static function namespaceName(?string $namespace = null): ?string
-    {
-        $namespace = self::namespaceSeparator($namespace);
-        if (empty($namespace))
-        {
-            $namespace = 'Wsdl' . self::NAMESPACE_SEPARATOR . self::DEFAULT_NAMESPACE_NAME;
-        }
-        if ((mb_stripos($namespace, self::DEFAULT_NAMESPACE_NAME) !== false))
-        {
-            $namespace = 'Wsdl' . self::NAMESPACE_SEPARATOR . self::DEFAULT_NAMESPACE_NAME;
-        }
-        CheckHelper::blacklist($namespace);
-
-        return $namespace;
-    }
-
-    public static function pathFromNamespace(?string $namespace = null): string
-    {
-        if ($namespace and mb_substr($namespace, -1) == self::NAMESPACE_SEPARATOR)
-        {
-            $count = mb_strlen($namespace);
-            $namespace = mb_substr($namespace, 0, $count - 1);
-        }
-        if ($namespace and mb_substr($namespace, 0) == self::NAMESPACE_SEPARATOR)
-        {
-            $namespace = mb_substr($namespace, 1);
-        }
-        $path = $namespace;
-
-        return TMP_DIR . self::NAMESPACE_SEPARATOR . 'generated' . self::NAMESPACE_SEPARATOR . $path;
-    }
-
-    public static function options(?array $options = null): array
-    {
-        if (!isset($options[self::OPTIONS_TRACE]))
-        {
-            $options[self::OPTIONS_TRACE] = true;
-        }
-        if (!isset($options[self::OPTIONS_EXCEPTIONS]))
-        {
-            $options[self::OPTIONS_EXCEPTIONS] = true;
-        }
-
-        return $options;
-    }
 
     public static function className(?string $className): string
     {
@@ -89,14 +28,11 @@ class NormalizeHelper
         return $className;
     }
 
-    public static function newClassName(?string $className): string
+    public static function docCommentForNetteGenerator(string $comment): string
     {
-        if (empty($className))
-        {
-            $className = 'SoapClient';
-        }
+        $vars = ['\/**', '*/'];
 
-        return $className;
+        return str_replace($vars, '', $comment);
     }
 
     public static function generateValidNameOfClassOrProperty(string $value = null, bool $firstUp = true): ?string
@@ -132,12 +68,45 @@ class NormalizeHelper
         return $value;
     }
 
-
-    public static function docCommentForNetteGenerator(string $comment): string
+    /**
+     * @param null|string $namespace
+     * @return null|string
+     * @throws NamespaceNameBlacklisted
+     */
+    public static function namespaceName(?string $namespace = null): ?string
     {
-        $vars = ['\/**', '*/'];
+        $namespace = self::namespaceSeparator($namespace);
+        if (empty($namespace))
+        {
+            $namespace = 'Wsdl' . self::NAMESPACE_SEPARATOR . self::DEFAULT_NAMESPACE_NAME;
+        }
+        if ((mb_stripos($namespace, self::DEFAULT_NAMESPACE_NAME) !== false))
+        {
+            $namespace = 'Wsdl' . self::NAMESPACE_SEPARATOR . self::DEFAULT_NAMESPACE_NAME;
+        }
+        CheckHelper::blacklist($namespace);
 
-        return str_replace($vars, '', $comment);
+        return $namespace;
+    }
+
+    public static function namespaceSeparator(?string $namespace = null): ?string
+    {
+        if ($namespace and mb_substr($namespace, -1) == self::NAMESPACE_SEPARATOR)
+        {
+            $namespace = mb_substr($namespace, 0, -1);
+        }
+
+        return $namespace;
+    }
+
+    public static function newClassName(?string $className): string
+    {
+        if (empty($className))
+        {
+            $className = 'SoapClient';
+        }
+
+        return $className;
     }
 
     /**
@@ -154,6 +123,36 @@ class NormalizeHelper
         }
 
         return $typesClass->getNamespace() . '\\' . $typesClass->getTypesNamespace() . $typeNamespaceEnd;
+    }
+
+    public static function options(?array $options = null): array
+    {
+        if (!isset($options[self::OPTIONS_TRACE]))
+        {
+            $options[self::OPTIONS_TRACE] = true;
+        }
+        if (!isset($options[self::OPTIONS_EXCEPTIONS]))
+        {
+            $options[self::OPTIONS_EXCEPTIONS] = true;
+        }
+
+        return $options;
+    }
+
+    public static function pathFromNamespace(?string $namespace = null): string
+    {
+        if ($namespace and mb_substr($namespace, -1) == self::NAMESPACE_SEPARATOR)
+        {
+            $count = mb_strlen($namespace);
+            $namespace = mb_substr($namespace, 0, $count - 1);
+        }
+        if ($namespace and mb_substr($namespace, 0) == self::NAMESPACE_SEPARATOR)
+        {
+            $namespace = mb_substr($namespace, 1);
+        }
+        $path = $namespace;
+
+        return TMP_DIR . self::NAMESPACE_SEPARATOR . 'generated' . self::NAMESPACE_SEPARATOR . $path;
     }
 
 }

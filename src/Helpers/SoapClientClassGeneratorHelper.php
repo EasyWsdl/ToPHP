@@ -26,7 +26,6 @@ class SoapClientClassGeneratorHelper
 {
     private const CALL_METHOD_PATTERN = 'callMethod';
     private const CALL_METHOD_PATTERT_WITHOUT_REQUEST = 'callMethodWithoutRequest';
-    private const CALL_METHOD_RETURN_TYPE_SUFFIX = 'Response';
 
     /** @var string */
     public $soapClientName;
@@ -40,8 +39,6 @@ class SoapClientClassGeneratorHelper
     protected $patternClass;
     /** @var array */
     protected $patternMethods;
-    /** @var array */
-    protected $patternStaticProperties;
     /** @var array */
     protected $patternProperties;
     /** @var PhpFile */
@@ -64,6 +61,13 @@ class SoapClientClassGeneratorHelper
         $this->createClassFromPattern($extends);
     }
 
+    /**
+     * @param string              $name
+     * @param TypesClassType|null $typeHintClass
+     * @param TypesClassType      $returnTypeClass
+     * @param string|null         $argument
+     * @throws ReflectionException
+     */
     public function addCallMethod(string $name, ?TypesClassType $typeHintClass, TypesClassType $returnTypeClass, ?string $argument): void
     {
         $method = $this->class->addMethod($name);
@@ -116,6 +120,10 @@ class SoapClientClassGeneratorHelper
         $method->setBody($body);
     }
 
+    /**
+     * @param TypesClassTypes $classTypes
+     * @param string          $soapClassName
+     */
     public function addClassmapMethod(TypesClassTypes $classTypes, string $soapClassName): void
     {
         $values = [];
@@ -134,11 +142,13 @@ class SoapClientClassGeneratorHelper
         }
         sort($values);
         $this->addMethodWithArrayBody('loadClassMap', 'loadClassMap', $values);
-        //        $string = implode(",\n", $values);
-        //        $method = $this->class->addMethod('loadClassMap');
-        //        $method->setVisibility('protected')->setStatic()->setBody("\$classmap = [\n" . $string . "\n];\n\nreturn \$classmap;");
     }
 
+    /**
+     * @param array  $classMap
+     * @param array  $typesNs
+     * @param string $soapClassName
+     */
     public function addClassmapRenamedPropertiesMethod(array $classMap, array $typesNs, string $soapClassName): void
     {
         $classMap[$soapClassName] = array_unique($classMap[$soapClassName]);
@@ -180,6 +190,11 @@ class SoapClientClassGeneratorHelper
         return $this->file;
     }
 
+    /**
+     * @param string $methodName
+     * @param string $paramName
+     * @param array  $values
+     */
     private function addMethodWithArrayBody(string $methodName, string $paramName, array $values): void
     {
         $string = implode(",\n", $values);
@@ -187,6 +202,10 @@ class SoapClientClassGeneratorHelper
         $method->setVisibility('protected')->setStatic()->setBody("\$$methodName = [\n" . $string . "\n];\n\nreturn \$$methodName;");
     }
 
+    /**
+     * @param ReflectionMethod $method
+     * @return string
+     */
     private function getMethodBody(ReflectionMethod $method): string
     {
         $fileName = $method->getFileName();
@@ -213,6 +232,9 @@ class SoapClientClassGeneratorHelper
         return $body;
     }
 
+    /**
+     * @throws ReflectionException
+     */
     private function getPatternClass(): void
     {
         $this->patternClass = new ReflectionClass(SoapClientPattern::class);

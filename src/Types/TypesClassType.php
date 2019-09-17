@@ -25,11 +25,17 @@ class TypesClassType
     /** @var null|string */
     protected $typesNamespace = null;
 
+    /**
+     * @param NetteProperty $property
+     */
     public function addProperty(NetteProperty $property): void
     {
         $this->properties[$property->getName()] = $property;
     }
 
+    /**
+     * @param string $statement
+     */
     public function addUseStatement(string $statement): void
     {
         $this->useStatements[] = $statement;
@@ -91,6 +97,10 @@ class TypesClassType
         return $this->properties;
     }
 
+    /**
+     * @param string $name
+     * @return NetteProperty|null
+     */
     public function getProperty(string $name): ?NetteProperty
     {
         if (isset($this->properties[$name]))

@@ -4,17 +4,34 @@
 namespace EasyWsdl\ToPHP;
 
 
-use EasyWsdl\ToPHP\Helpers\DirCreator;
 use EasyWsdl\ToPHP\Helpers\NormalizeHelper;
 use Nette\PhpGenerator\Helpers;
 use Nette\PhpGenerator\Method;
 use Nette\PhpGenerator\PhpFile;
 use Nette\PhpGenerator\PhpNamespace;
 use Nette\PhpGenerator\Printer as NettePrinter;
+use UnexpectedValueException;
 
 
 class Printer extends NettePrinter
 {
+
+    /**
+     * @param string $path
+     * @param int    $chmod
+     * @param bool   $recursive
+     */
+    public static function createDir(string $path, int $chmod = 0666, bool $recursive = false): void
+    {
+        if (!is_dir($path))
+        {
+            $isCreated = mkdir($path, $chmod, $recursive);
+            if ($isCreated == false)
+            {
+                throw new UnexpectedValueException(printf('Creating path %s failure.', $path));
+            }
+        }
+    }
 
     /**
      * @param string  $filePath
@@ -23,7 +40,7 @@ class Printer extends NettePrinter
      */
     public static function generateToFile(string $filePath, string $className, PhpFile $phpFile): void
     {
-        DirCreator::createDir($filePath, 0666, true);
+        self::createDir($filePath, 0666, true);
         $file = fopen($filePath . NormalizeHelper::DIRECTORY_SEPARATOR . $className . '.php', 'w');
         fwrite($file, (new self)->printFile($phpFile));
     }
